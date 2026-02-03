@@ -1,0 +1,8 @@
+{
+  "name": "@shared/constants",
+  "version": "1.0.0",
+  "repository": "https://github.com/nestoca/public-apps",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "license": "MIT"
+}

@@ -1,0 +1,96 @@
+{
+  "name": "public-apps",
+  "version": "0.0.0",
+  "private": true,
+  "repository": "https://github.com/nestoca/public-apps",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "tenant": "node ./scripts/tenant/tenant.mjs",
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel --",
+    "dev:cma": "turbo run dev --parallel --filter application --filter documents --filter get-a-quote --filter dx-proxy --filter @shared/locales --",
+    "dev:application": "turbo run dev --parallel --filter application --filter dx-proxy --filter @shared/locales --",
+    "dev:documents": "turbo run dev --parallel --filter documents --filter dx-proxy --filter @shared/locales --",
+    "dev:getaquote": "turbo run dev --parallel --filter get-a-quote --filter dx-proxy --filter @shared/locales --",
+    "// HUB": "is the new name for FAD, we'll have stories to re-configure the build, CI, ...",
+    "dev:hub": "turbo run dev --parallel --filter financial-dashboard --filter dx-proxy --filter @shared/locales --",
+    "start:local:cma": "turbo run start:local --parallel --filter application --filter documents --filter get-a-quote --filter dx-proxy --",
+    "start:local:application": "turbo run start:local --parallel --filter application --filter dx-proxy --filter @shared/locales --",
+    "start:local:documents": "turbo run start:local --parallel --filter documents --filter dx-proxy --filter @shared/locales --",
+    "start:local:getaquote": "turbo run start:local --parallel --filter get-a-quote --filter dx-proxy --filter @shared/locales --",
+    "start:local:hub": "turbo run start:local --parallel --filter financial-dashboard --filter dx-proxy --filter @shared/locales --",
+    "start:local": "turbo run start:local --parallel --",
+    "start:documents": "turbo run start --parallel --filter documents --filter dx-proxy --filter @shared/locales",
+    "lint": "turbo run lint",
+    "test": "vitest run",
+    "test:update": "vitest -u",
+    "link:ui": "./link.sh link",
+    "unlink:ui": "./link.sh unlink",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "change": "beachball change",
+    "check": "beachball check",
+    "bump": "beachball bump",
+    "checkchange": "beachball check",
+    "release": "beachball publish --no-git-tags --no-publish --push",
+    "pw:ci": "yarn playwright test",
+    "pw:test": "concurrently -P -k \"yarn {@} -- {@}\" \"yarn playwright test\" --",
+    "pw:ui": "concurrently -P -k \"yarn {@} -- {@}\" \"yarn playwright test --ui\" --",
+    "pw:debug": "concurrently -P -k \"yarn {@} -- {@}\" \"yarn playwright test --debug\" --",
+    "pw:report": "concurrently -P -k \"yarn {@} -- {@}\" \"yarn playwright show-report\" --",
+    "pw:codegen": "concurrently -P -k \"yarn {@} -- {@}\" \"yarn playwright codegen\" --",
+    "allure:check": "npx --no tsx scripts/find-missing-withallure.ts",
+    "allure:upload": "allurectl upload ./allure-results --endpoint=https://nesto.testops.cloud --project-id=68",
+    "allure:clean": "rimraf ./allure-results"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@testing-library/cypress": "^9.0.0",
+    "@total-typescript/ts-reset": "^0.5.1",
+    "@types/node": "^22.11.0",
+    "beachball": "2.43.1",
+    "commander": "^11.0.0",
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.4.5",
+    "eslint-config-custom": "*",
+    "figlet": "^1.7.0",
+    "i18next": "^23.5.1",
+    "jwt-decode": "^4.0.0",
+    "lint-staged": "^13.3.0",
+    "picocolors": "^1.0.0",
+    "prettier": "latest",
+    "start-server-and-test": "^2.0.0",
+    "turbo": "^2.2.3",
+    "tsx": "^4.20.5",
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "npm": ">=7.0.0",
+    "yarn": ">= 1.22.19",
+    "node": ">=22.11.0"
+  },
+  "dependencies": {
+    "cypress": "^14.5.3"
+  },
+  "packageManager": "yarn@1.22.19",
+  "lint-staged": {
+    "apps/**/*.{js,ts,jsx,tsx}": [
+      "eslint --fix"
+    ],
+    "packages/**/*.{js,ts,jsx,tsx}": [
+      "eslint --fix"
+    ],
+    "*.json": [
+      "prettier --write"
+    ]
+  },
+  "volta": {
+    "node": "22.11.0"
+  },
+  "resolutions": {
+    "form-data": "^4.0.4"
+  }
+}
